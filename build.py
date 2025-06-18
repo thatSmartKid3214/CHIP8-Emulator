@@ -1,0 +1,49 @@
+import subprocess
+import os
+
+files = ["main.cpp", "lib/wrapper.cpp", "lib/IO.cpp", "lib/chip8.cpp", "lib/instructions.cpp"]
+libs = ["SDL3.dll"]
+obj_files = ["main.o", "wrapper.o", "IO.o", "chip8.o", "instructions.o"]
+
+output_file = "main"
+
+def create_args():
+    args = {
+        "compile": ["g++", "-c"],
+        "link": ["g++"]
+    }
+    
+    for file in obj_files:
+        args["link"].append(file)
+
+    for lib in libs:
+        args["link"].append("-l")
+        args["link"].append(lib)
+    
+    for file in files:
+        args["compile"].append(file)
+
+    args["link"].append(f"-o")
+    args["link"].append(output_file)
+
+    return args
+
+
+args = create_args()
+
+for arg in args.values():
+    print(arg)
+    process = subprocess.run(arg, capture_output=True, encoding="UTF-8")
+
+    print(process.stdout)
+    print(process.stderr)
+
+print("Done building")
+    
+    
+
+    
+
+
+
+
