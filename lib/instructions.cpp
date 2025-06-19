@@ -163,7 +163,7 @@ void XOR(uint8_t* registers, int reg_x, int reg_y)
 
 void ADD(uint8_t* registers, int reg_x, int reg_y)
 {
-    unsigned int val = registers[reg_x] + registers[reg_y];
+    unsigned int val = (unsigned int)registers[reg_x] + (unsigned int)registers[reg_y];
     if(val > 255)
     {
         registers[0xF] = 1;
@@ -178,26 +178,26 @@ void SUBTRACT(uint8_t* registers, int reg_x, int reg_y, int operation)
 {
     if (operation == 0x5)
     {
-        if(registers[reg_x] > registers[reg_y])
+        if(registers[reg_y] > registers[reg_x])
         {
-            registers[0xF] = 1;
-        } else {
             registers[0xF] = 0;
+        } else {
+            registers[0xF] = 1;
         }
 
-        registers[reg_x] = registers[reg_x]-registers[reg_y];
+        registers[reg_x] -= registers[reg_y];
     }
 
     if (operation == 0x7)
     {
-        if(registers[reg_y] > registers[reg_x])
+        if(registers[reg_y] < registers[reg_x])
         {
-            registers[0xF] = 1;
-        } else {
             registers[0xF] = 0;
+        } else {
+            registers[0xF] = 1;
         }
 
-        registers[reg_y] = registers[reg_y]-registers[reg_x];
+        registers[reg_x] = registers[reg_y]-registers[reg_x];
     }
 }
 

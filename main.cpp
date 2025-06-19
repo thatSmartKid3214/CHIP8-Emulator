@@ -15,14 +15,14 @@ int main(int argc, char** args)
         return 1;
     }
 
-    Window window = Window("CHIP8 Emu", 64*20, 32*20, SDL_WINDOW_RESIZABLE);
+    Window window = Window("CHIP8 Emulator", 64*20, 32*20, SDL_WINDOW_RESIZABLE);
     SDL_Surface*  surf = window.getChipSurface();
     CHIP_8 chip_8 = CHIP_8();
 
     fill(surf, 0, 0, 0);
 
     chip_8.startCHIP();
-    chip_8.load("roms/coin_flip.ch8");
+    chip_8.load("roms/slipperyslope.ch8");
 
     SDL_Event event;
 
@@ -49,6 +49,64 @@ int main(int argc, char** args)
                 {
                     case SDLK_1:
                         chip_8.keys[0x1] = 1;
+                        break;
+                    case SDLK_2:
+                        chip_8.keys[0x2] = 1;
+                        break;
+                    case SDLK_3:
+                        chip_8.keys[0x3] = 1;
+                        break;
+                    case SDLK_4:
+                        chip_8.keys[0xC] = 1;
+                        break;
+                    case SDLK_Q:
+                        chip_8.keys[0x4] = 1;
+                        break;
+                    case SDLK_W:
+                        chip_8.keys[0x5] = 1;
+                        break;
+                    case SDLK_E:
+                        chip_8.keys[0x6] = 1;
+                        break;
+                    case SDLK_R:
+                        chip_8.keys[0xD] = 1;
+                        break;
+                    
+                    case SDLK_A:
+                        chip_8.keys[0x7] = 1;
+                        break;
+                    case SDLK_S:
+                        chip_8.keys[0x8] = 1;
+
+                        break;
+                    case SDLK_D:
+                        chip_8.keys[0x9] = 1;
+                        break;
+                    case SDLK_F:
+                        chip_8.keys[0xE] = 1;
+                        break;
+                    
+                    case SDLK_Z:
+                        chip_8.keys[0xA] = 1;
+                        break;
+                    case SDLK_X:
+                        chip_8.keys[0x0] = 1;
+                        break;
+                    case SDLK_C:
+                        chip_8.keys[0xB] = 1;
+                        break;
+                    case SDLK_V:
+                        chip_8.keys[0xF] = 1;
+                        break;
+                }
+            }
+
+            if(event.type == SDL_EVENT_KEY_UP)
+            {
+                switch(event.key.key)
+                {
+                    case SDLK_1:
+                        chip_8.keys[0x1] = 0;
 
                         if(chip_8.wait)
                         {
@@ -59,7 +117,7 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_2:
-                        chip_8.keys[0x2] = 1;
+                        chip_8.keys[0x2] = 0;
 
                         if(chip_8.wait)
                         {
@@ -70,7 +128,7 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_3:
-                        chip_8.keys[0x3] = 1;
+                        chip_8.keys[0x3] = 0;
 
                         if(chip_8.wait)
                         {
@@ -81,7 +139,7 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_4:
-                        chip_8.keys[0xC] = 1;
+                        chip_8.keys[0xC] = 0;
 
                         if(chip_8.wait)
                         {
@@ -93,7 +151,7 @@ int main(int argc, char** args)
                         break;
 
                     case SDLK_Q:
-                        chip_8.keys[0x4] = 1;
+                        chip_8.keys[0x4] = 0;
 
                         if(chip_8.wait)
                         {
@@ -104,8 +162,8 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_W:
-                        chip_8.keys[0x5] = 1;
-                        
+                        chip_8.keys[0x5] = 0;
+
                         if(chip_8.wait)
                         {
                             setRegister(chip_8.registers, chip_8.waitingReg, 0x5);
@@ -115,7 +173,7 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_E:
-                        chip_8.keys[0x6] = 1;
+                        chip_8.keys[0x6] = 0;
 
                         if(chip_8.wait)
                         {
@@ -126,7 +184,7 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_R:
-                        chip_8.keys[0xD] = 1;
+                        chip_8.keys[0xD] = 0;
 
                         if(chip_8.wait)
                         {
@@ -138,7 +196,7 @@ int main(int argc, char** args)
                         break;
                     
                     case SDLK_A:
-                        chip_8.keys[0x7] = 1;
+                        chip_8.keys[0x7] = 0;
 
                         if(chip_8.wait)
                         {
@@ -149,7 +207,7 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_S:
-                        chip_8.keys[0x8] = 1;
+                        chip_8.keys[0x8] = 0;
 
                         if(chip_8.wait)
                         {
@@ -160,7 +218,7 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_D:
-                        chip_8.keys[0x9] = 1;
+                        chip_8.keys[0x9] = 0;
 
                         if(chip_8.wait)
                         {
@@ -171,7 +229,7 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_F:
-                        chip_8.keys[0xE] = 1;
+                        chip_8.keys[0xE] = 0;
 
                         if(chip_8.wait)
                         {
@@ -183,7 +241,7 @@ int main(int argc, char** args)
                         break;
                     
                     case SDLK_Z:
-                        chip_8.keys[0xA] = 1;
+                        chip_8.keys[0xA] = 0;
 
                         if(chip_8.wait)
                         {
@@ -194,7 +252,7 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_X:
-                        chip_8.keys[0x0] = 1;
+                        chip_8.keys[0x0] = 0;
 
                         if(chip_8.wait)
                         {
@@ -205,7 +263,7 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_C:
-                        chip_8.keys[0xB] = 1;
+                        chip_8.keys[0xB] = 0;
 
                         if(chip_8.wait)
                         {
@@ -216,7 +274,7 @@ int main(int argc, char** args)
 
                         break;
                     case SDLK_V:
-                        chip_8.keys[0xF] = 1;
+                        chip_8.keys[0xF] = 0;
 
                         if(chip_8.wait)
                         {
@@ -225,64 +283,6 @@ int main(int argc, char** args)
                             chip_8.program_counter += 2;
                         }
 
-                        break;
-                }
-            }
-
-            if(event.type == SDL_EVENT_KEY_UP)
-            {
-                switch(event.key.key)
-                {
-                    case SDLK_1:
-                        chip_8.keys[0x1] = 0;
-                        break;
-                    case SDLK_2:
-                        chip_8.keys[0x2] = 0;
-                        break;
-                    case SDLK_3:
-                        chip_8.keys[0x3] = 0;
-                        break;
-                    case SDLK_4:
-                        chip_8.keys[0xC] = 0;
-                        break;
-
-                    case SDLK_Q:
-                        chip_8.keys[0x4] = 0;
-                        break;
-                    case SDLK_W:
-                        chip_8.keys[0x5] = 0;
-                        break;
-                    case SDLK_E:
-                        chip_8.keys[0x6] = 0;
-                        break;
-                    case SDLK_R:
-                        chip_8.keys[0xD] = 0;
-                        break;
-                    
-                    case SDLK_A:
-                        chip_8.keys[0x7] = 0;
-                        break;
-                    case SDLK_S:
-                        chip_8.keys[0x8] = 0;
-                        break;
-                    case SDLK_D:
-                        chip_8.keys[0x9] = 0;
-                        break;
-                    case SDLK_F:
-                        chip_8.keys[0xE] = 0;
-                        break;
-                    
-                    case SDLK_Z:
-                        chip_8.keys[0xA] = 0;
-                        break;
-                    case SDLK_X:
-                        chip_8.keys[0x0] = 0;
-                        break;
-                    case SDLK_C:
-                        chip_8.keys[0xB] = 0;
-                        break;
-                    case SDLK_V:
-                        chip_8.keys[0xF] = 0;
                         break;
                 }
             }
