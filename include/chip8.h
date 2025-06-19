@@ -17,10 +17,13 @@ class CHIP_8 {
         uint16_t index_register;
         uint8_t registers[16];
         uint16_t stack[16];
-        Uint8* stack_pointer = reinterpret_cast<Uint8*>(stack);
+        bool keys[16];
+        uint8_t stack_pointer = 0;
 		uint8_t delay_timer; // Decreases at a rate of 60 Hz (60 times per second)
 
 		int tick_rate = 60;
+        bool wait = false;
+        uint8_t waitingReg;
 
         int romSize;
 		bool running = false;

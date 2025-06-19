@@ -7,6 +7,7 @@
 int main(int argc, char** args)
 {
     bool running = true;
+    srand(time(NULL));
 
     if(init(0) < 0)
     {
@@ -18,24 +19,10 @@ int main(int argc, char** args)
     SDL_Surface*  surf = window.getChipSurface();
     CHIP_8 chip_8 = CHIP_8();
 
+    fill(surf, 0, 0, 0);
+
     chip_8.startCHIP();
-    chip_8.load("roms/ibm.ch8");
-
-    /*
-    uint16_t testNum = 0x00E0;
-    std::cout << testNum << std::endl;
-
-    
-    Instruction instr = createInstruction(testNum);
-
-    std::cout << "first Nibble: " << (unsigned int)instr.firstNibble << std::endl;
-    std::cout << "second Nibble: " << (unsigned int)instr.secondNibble << std::endl;
-    std::cout << "third Nibble: " << (unsigned int)instr.thirdNibble << std::endl;
-    std::cout << "fourth Nibble: " << (unsigned int)instr.fourthNibble << std::endl;
-
-    std::cout << (unsigned int)getSecondByte(instr) << std::endl;
-    std::cout << (unsigned int)getNibbles(instr) << std::endl;
-    */
+    chip_8.load("roms/coin_flip.ch8");
 
     SDL_Event event;
 
@@ -47,8 +34,6 @@ int main(int argc, char** args)
         Uint64 start_time = SDL_GetPerformanceCounter();
         chip_8.run();
 
-    
-
         // Get Events
         while(SDL_PollEvent(&event))
         {
@@ -57,6 +42,250 @@ int main(int argc, char** args)
                 running = false;
                 break;
             }
+
+            if(event.type == SDL_EVENT_KEY_DOWN)
+            {
+                switch(event.key.key)
+                {
+                    case SDLK_1:
+                        chip_8.keys[0x1] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0x1);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_2:
+                        chip_8.keys[0x2] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0x2);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_3:
+                        chip_8.keys[0x3] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0x3);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_4:
+                        chip_8.keys[0xC] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0xC);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+
+                    case SDLK_Q:
+                        chip_8.keys[0x4] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0x4);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_W:
+                        chip_8.keys[0x5] = 1;
+                        
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0x5);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_E:
+                        chip_8.keys[0x6] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0x6);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_R:
+                        chip_8.keys[0xD] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0xD);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    
+                    case SDLK_A:
+                        chip_8.keys[0x7] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0x7);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_S:
+                        chip_8.keys[0x8] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0x8);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_D:
+                        chip_8.keys[0x9] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0x9);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_F:
+                        chip_8.keys[0xE] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0xE);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    
+                    case SDLK_Z:
+                        chip_8.keys[0xA] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0xA);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_X:
+                        chip_8.keys[0x0] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0x0);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_C:
+                        chip_8.keys[0xB] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0xB);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                    case SDLK_V:
+                        chip_8.keys[0xF] = 1;
+
+                        if(chip_8.wait)
+                        {
+                            setRegister(chip_8.registers, chip_8.waitingReg, 0xF);
+                            chip_8.wait = false;
+                            chip_8.program_counter += 2;
+                        }
+
+                        break;
+                }
+            }
+
+            if(event.type == SDL_EVENT_KEY_UP)
+            {
+                switch(event.key.key)
+                {
+                    case SDLK_1:
+                        chip_8.keys[0x1] = 0;
+                        break;
+                    case SDLK_2:
+                        chip_8.keys[0x2] = 0;
+                        break;
+                    case SDLK_3:
+                        chip_8.keys[0x3] = 0;
+                        break;
+                    case SDLK_4:
+                        chip_8.keys[0xC] = 0;
+                        break;
+
+                    case SDLK_Q:
+                        chip_8.keys[0x4] = 0;
+                        break;
+                    case SDLK_W:
+                        chip_8.keys[0x5] = 0;
+                        break;
+                    case SDLK_E:
+                        chip_8.keys[0x6] = 0;
+                        break;
+                    case SDLK_R:
+                        chip_8.keys[0xD] = 0;
+                        break;
+                    
+                    case SDLK_A:
+                        chip_8.keys[0x7] = 0;
+                        break;
+                    case SDLK_S:
+                        chip_8.keys[0x8] = 0;
+                        break;
+                    case SDLK_D:
+                        chip_8.keys[0x9] = 0;
+                        break;
+                    case SDLK_F:
+                        chip_8.keys[0xE] = 0;
+                        break;
+                    
+                    case SDLK_Z:
+                        chip_8.keys[0xA] = 0;
+                        break;
+                    case SDLK_X:
+                        chip_8.keys[0x0] = 0;
+                        break;
+                    case SDLK_C:
+                        chip_8.keys[0xB] = 0;
+                        break;
+                    case SDLK_V:
+                        chip_8.keys[0xF] = 0;
+                        break;
+                }
+            }
         }
 
         if(running == false)
@@ -64,7 +293,6 @@ int main(int argc, char** args)
             break;
         }
 
-        // Update display
         window.drawFromDisplay(chip_8.display);
 
         updateWindow(window);
@@ -74,12 +302,17 @@ int main(int argc, char** args)
         float elapsed_time = (end_time-start_time) / static_cast<float>(SDL_GetPerformanceFrequency()) * 1000.0f;
         float delay = 16.6666f - elapsed_time;
 
+        if((int)chip_8.delay_timer-1 >= 0)
+        {
+            chip_8.delay_timer -= 1;
+        }
+
         if(delay < 0)
         {
             delay = 0;
         }
 
-        SDL_Delay(SDL_floor(delay));
+        //SDL_Delay(SDL_floor(delay));
     
     }
 

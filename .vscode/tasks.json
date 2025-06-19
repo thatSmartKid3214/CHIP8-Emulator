@@ -7,7 +7,13 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "lib/IO.cpp",
+                "lib/wrapper.cpp",
+                "lib/instructions.cpp",
+                "lib/chip8.cpp",
+                "main.cpp",
+                "-l",
+                "SDL3.dll",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],

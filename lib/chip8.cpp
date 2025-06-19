@@ -59,8 +59,16 @@ void CHIP_8::execute()
                 clearDisplay(display);
 
                 std::cout << "cleared!" << std::endl;
-
             }
+
+            if(nibbles == 0x0EE)
+            {
+
+                ret(stack, program_counter, stack_pointer);
+
+                std::cout << "return" << std::endl;
+            }
+
             break;
         case 0x1:
             jumpAddr(program_counter, nibbles);
@@ -69,12 +77,24 @@ void CHIP_8::execute()
 
             break;
         case 0x2:
+            call(stack, program_counter, stack_pointer, nibbles);
+
+            std::cout << "Call subroutine at: " << nibbles << std::endl;
+
             break;
         case 0x3:
+            skipEqual(registers, program_counter, instr.secondNibble, secondByte);
+
+            std::cout << "Skipped next insturction!" << std::endl;
+
             break;
         case 0x4:
+            skipNotEqual(registers, program_counter, instr.secondNibble, secondByte);
+            std::cout << "Skipped next instruction because value was not equal!" << std::endl;
             break;
         case 0x5:
+            skipRegEqual(registers, program_counter, instr.secondNibble, instr.thirdNibble);
+            std::cout << "Same value in registers: Skipping!" << std::endl;
             break;
         case 0x6:
             setRegister(registers, instr.secondNibble, secondByte);
@@ -89,8 +109,42 @@ void CHIP_8::execute()
 
             break;
         case 0x8:
+            std::cout << "logic operation" << std::endl;
+            switch(instr.fourthNibble)
+            {
+
+                case 0x0:
+                    set(registers, instr.secondNibble, instr.thirdNibble);
+                    break;
+                case 0x1:
+                    OR(registers, instr.secondNibble, instr.thirdNibble);
+                    break;
+                case 0x2:
+                    AND(registers, instr.secondNibble, instr.thirdNibble);
+                    break;
+                case 0x3:
+                    XOR(registers, instr.secondNibble, instr.thirdNibble);
+                    break;
+                case 0x4:
+                    ADD(registers, instr.secondNibble, instr.thirdNibble);
+                    break;
+                case 0x5: case 0x7:
+                    SUBTRACT(registers, instr.secondNibble, instr.thirdNibble, instr.fourthNibble);
+                    break;
+                case 0x6:
+                    bitShiftRight(registers, instr.secondNibble, instr.thirdNibble);
+                    break;
+                case 0xE:
+                    bitShiftLeft(registers, instr.secondNibble, instr.thirdNibble);
+                    break;
+            }
+
             break;
         case 0x9:
+            skipRegNotEqual(registers, program_counter, instr.secondNibble, instr.thirdNibble);
+
+            std::cout << "Different values in registers: Skipping!" << std::endl;
+
             break;
         case 0xA:
             setIndexRegister(index_register, nibbles);
@@ -99,8 +153,10 @@ void CHIP_8::execute()
 
             break;
         case 0xB:
+            offsetJump(registers, program_counter, nibbles);
             break;
         case 0xC:
+            random(registers, instr.secondNibble, secondByte);
             break;
         case 0xD:
             draw(memory, registers, display, index_register, instr.secondNibble, instr.thirdNibble, instr.fourthNibble);
@@ -109,8 +165,67 @@ void CHIP_8::execute()
 
             break;
         case 0xE:
+
+            switch(secondByte)
+            {
+                case 0x9E:
+                    ifPressed(registers, keys, program_counter, instr.secondNibble);
+                    break;
+                case 0xA1:
+                    ifNotPressed(registers, keys, program_counter, instr.secondNibble);
+                    break;
+            }
+        
             break;
         case 0xF:
+            switch(secondByte)
+            {
+                case 0x07:
+                    std::cout << "Storing value of DT in register: " << instr.secondNibble << std::endl;
+                    getTimer(registers, instr.secondNibble, delay_timer);
+                    break;
+                case 0x15:
+                    std::cout << "Setting timer!" << std::endl;
+                    setDelayTimer(registers, instr.secondNibble, delay_timer);
+                    break;
+                case 0x33:
+                    std::cout << "Converting!" << std::endl;
+                    BCDConversion(memory, registers, index_register, instr.secondNibble);
+                    break;
+                case 0x1E:
+                    addToIndex(registers, index_register, instr.secondNibble);
+                    break;
+                case 0x0A:
+
+                    if(wait == false)
+                    {
+                        wait = true;
+                        waitingReg = instr.secondNibble;
+                    }
+
+                    if(wait == true)
+                    {
+                        program_counter -= 2;
+                        std::cout << "Waiting!" << std::endl;
+                    }
+
+                    break;
+                case 0x29:
+                    getFont(registers, index_register, instr.secondNibble);
+                    break;    
+                case 0x55:
+                    store(memory, registers, index_register, instr.secondNibble);
+
+                    std::cout << "store data!" << std::endl;
+
+                    break;
+                case 0x65:
+                    read(memory, registers, index_register, instr.secondNibble);
+                    
+                    std::cout << "read data!" << std::endl;
+                    break;
+            }
+
             break;
     }
 

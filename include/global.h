@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 
 
 const int WIDTH = 64;
