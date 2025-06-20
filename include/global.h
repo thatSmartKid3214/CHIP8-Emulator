@@ -10,6 +10,11 @@
 
 const int WIDTH = 64;
 const int HEIGHT = 32;
+const int SCALE = 20;
+
+extern int R;
+extern int G;
+extern int B;
 
 const int startAddress = 0x200;
 

@@ -15,23 +15,26 @@ int main(int argc, char** args)
         return 1;
     }
 
-    Window window = Window("CHIP8 Emulator", 64*20, 32*20, SDL_WINDOW_RESIZABLE);
-    SDL_Surface*  surf = window.getChipSurface();
+    Window window = Window("CHIP8 Emulator", 64*SCALE, 32*SCALE, SDL_WINDOW_RESIZABLE);
     CHIP_8 chip_8 = CHIP_8();
 
-    fill(surf, 0, 0, 0);
-
     chip_8.startCHIP();
-    chip_8.load("roms/slipperyslope.ch8");
+    chip_8.load("roms/glitchGhost.ch8");
 
     SDL_Event event;
 
+    float now = SDL_GetPerformanceCounter();
+    float prev = 0;
+
+    float accumalator = 0;
+
     while(running)
     {
-        window.fill(0, 255, 0);
-        fill(surf, 0, 0, 0);
+        window.fill(0, 0, 0);
 
-        Uint64 start_time = SDL_GetPerformanceCounter();
+        now = SDL_GetPerformanceCounter();
+        accumalator = now-prev;
+        prev = now;
         chip_8.run();
 
         // Get Events
@@ -294,17 +297,17 @@ int main(int argc, char** args)
         }
 
         window.drawFromDisplay(chip_8.display);
-
-        updateWindow(window);
+        window.updateWindow();
 
         Uint64 end_time = SDL_GetPerformanceCounter();
 
-        float elapsed_time = (end_time-start_time) / static_cast<float>(SDL_GetPerformanceFrequency()) * 1000.0f;
+        float elapsed_time = (end_time-now) / static_cast<float>(SDL_GetPerformanceFrequency()) * 1000.0f;
         float delay = 16.6666f - elapsed_time;
 
-        if((int)chip_8.delay_timer-1 >= 0)
+        if((int)chip_8.delay_timer-1 >= 0 && accumalator > 1/60)
         {
             chip_8.delay_timer -= 1;
+            accumalator = 0;
         }
 
         if(delay < 0)
@@ -316,7 +319,7 @@ int main(int argc, char** args)
     
     }
 
-    destroy(window);
+    window.destroy();
 
     quit();
 

@@ -268,13 +268,11 @@ void store(uint8_t* memory, uint8_t* registers, uint16_t &index_reg, int reg)
 void read(uint8_t* memory, uint8_t* registers, uint16_t &index_reg, int reg)
 {
 
-    std::cout << reg << std::endl;
 
     for(int i = 0; i <= reg; i++)
     {
         registers[i] = memory[index_reg + i];
 
-        std::cout << (int)registers[i] << std::endl;
     }
     
     //index_reg = index_reg + reg + 1;
@@ -286,8 +284,6 @@ void BCDConversion(uint8_t* memory, uint8_t* registers, uint16_t index_reg, int 
     unsigned int value = registers[reg];
     int remainder = value%100;
 
-    std::cout << value << std::endl;
-
     if(value-remainder < 100)
     {
         memory[index_reg] = 0;
@@ -296,19 +292,13 @@ void BCDConversion(uint8_t* memory, uint8_t* registers, uint16_t index_reg, int 
         memory[index_reg+1] = (value-remainder)/10;
         memory[index_reg+2] = remainder;
 
-        std::cout << 0 << "--" << (value-remainder)/10 << "--" << remainder <<  std::endl;
-
     } else {
         memory[index_reg] = (value-remainder)/100;
-
-        std::cout << (value-remainder)/100 << "--";
 
         value = remainder;
         remainder = value%10;
         memory[index_reg+1] = (value-remainder)/10;
         memory[index_reg+2] = remainder;
-
-        std::cout << (value-remainder)/10 << "--" << remainder <<  std::endl;
     }
 
 }
