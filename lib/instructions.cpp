@@ -261,7 +261,7 @@ void store(uint8_t* memory, uint8_t* registers, uint16_t &index_reg, int reg)
         memory[index_reg + i] = registers[i];
     }
 
-    //index_reg = index_reg + reg + 1;
+    index_reg = index_reg + reg + 1;
 
 }
 
@@ -275,7 +275,7 @@ void read(uint8_t* memory, uint8_t* registers, uint16_t &index_reg, int reg)
 
     }
     
-    //index_reg = index_reg + reg + 1;
+    index_reg = index_reg + reg + 1;
 }
 
 

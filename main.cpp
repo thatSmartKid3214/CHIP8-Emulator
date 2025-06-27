@@ -3,6 +3,19 @@
 #include "include/IO.h"
 #include "include/chip8.h"
 #include "include/instructions.h"
+#include "include/tinyfiledialogs.h"
+
+void openROM(CHIP_8 &chip_8)
+{
+
+    const char* filters[1] = {"*.ch8"};
+    std::string path = tinyfd_openFileDialog("Select a file", "./roms", 1, filters, "CHIP 8 ROMS", 0);
+
+    chip_8.load(path);
+    clearDisplay(chip_8.display);
+
+    std::cout << "Loaded rom" << std::endl;
+}
 
 int main(int argc, char** args)
 {
@@ -19,14 +32,17 @@ int main(int argc, char** args)
     CHIP_8 chip_8 = CHIP_8();
 
     chip_8.startCHIP();
-    chip_8.load("roms/glitchGhost.ch8");
 
     SDL_Event event;
+
+    TTF_Font* font = TTF_OpenFont("assets/arial_black.ttf", 10);
 
     float now = SDL_GetPerformanceCounter();
     float prev = 0;
 
     float accumalator = 0;
+    float rate = 60;
+
 
     while(running)
     {
@@ -100,6 +116,10 @@ int main(int argc, char** args)
                         break;
                     case SDLK_V:
                         chip_8.keys[0xF] = 1;
+                        break;
+
+                    case SDLK_L:
+                        openROM(chip_8);
                         break;
                 }
             }
@@ -296,7 +316,15 @@ int main(int argc, char** args)
             break;
         }
 
+        if(chip_8.romLoaded)
+        {
+            chip_8.romLoaded = false;
+            std::cout << "Hallo" << std::endl;
+            continue;
+        }
+
         window.drawFromDisplay(chip_8.display);
+
         window.updateWindow();
 
         Uint64 end_time = SDL_GetPerformanceCounter();
@@ -304,7 +332,7 @@ int main(int argc, char** args)
         float elapsed_time = (end_time-now) / static_cast<float>(SDL_GetPerformanceFrequency()) * 1000.0f;
         float delay = 16.6666f - elapsed_time;
 
-        if((int)chip_8.delay_timer-1 >= 0 && accumalator > 1/60)
+        if((int)chip_8.delay_timer-1 >= 0 && accumalator >= 1/rate)
         {
             chip_8.delay_timer -= 1;
             accumalator = 0;
@@ -321,6 +349,7 @@ int main(int argc, char** args)
 
     window.destroy();
 
+    TTF_CloseFont(font);
     quit();
 
     return 0;

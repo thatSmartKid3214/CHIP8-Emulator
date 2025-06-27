@@ -2,22 +2,22 @@ import subprocess
 import os
 
 files = ["main.cpp", "lib/wrapper.cpp", "lib/IO.cpp", "lib/chip8.cpp", "lib/instructions.cpp"]
-libs = ["SDL3.dll"]
-obj_files = ["main.o", "wrapper.o", "IO.o", "chip8.o", "instructions.o"]
+libs = ["SDL3.dll", "SDL3_ttf.dll", "-lcomdlg32", "-lole32"]
+obj_files = ["main.o", "wrapper.o", "IO.o", "chip8.o", "instructions.o", "lib/tinyfiledialogs.c"]
 
 output_file = "main"
 
 def create_args():
     args = {
         "compile": ["g++", "-c"],
-        "link": ["g++"]
+        "link": ["g++", "-LC:/mingw/lib"]
     }
     
     for file in obj_files:
         args["link"].append(file)
 
+    args["link"].append("-l")
     for lib in libs:
-        args["link"].append("-l")
         args["link"].append(lib)
     
     for file in files:

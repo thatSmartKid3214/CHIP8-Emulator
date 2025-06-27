@@ -11,7 +11,6 @@ void CHIP_8::startCHIP()
         memory[fontStart+i] = font[i];
     }
 
-    running = true;
 }
 
 
@@ -26,6 +25,11 @@ void CHIP_8::load(std::string file)
 
     program_counter = 0x200;
     delay_timer = 0;
+    romLoaded = true;
+
+    running = true;
+
+    delete[] rom;
 
 }
 
@@ -47,6 +51,11 @@ Instruction CHIP_8::fetch()
 
 void CHIP_8::execute()
 {
+
+    if(!running)
+    {
+        return;
+    }
 
     Instruction instr = fetch();
     uint8_t secondByte = getSecondByte(instr);

@@ -6,31 +6,51 @@ int B = 0;
 
 int init(SDL_InitFlags flags)
 {
-    return SDL_Init(flags);
+    return (SDL_Init(flags) && TTF_Init());
 }
 
 void quit()
 {
+    TTF_Quit();
     SDL_Quit();
 }
 
 Window::Window(std::string title, int width, int height, SDL_WindowFlags flags)
 {
     SDL_CreateWindowAndRenderer(title.c_str(), width, height, flags, &win, &renderer);
+
+    surface = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, width, height);
+
+    SDL_SetRenderTarget(renderer, surface);
+
+    dstRect.x = 0;
+    dstRect.y = 0;
+    dstRect.w = width;
+    dstRect.h = height;
 }
 
 void Window::updateWindow()
 {
+    SDL_SetRenderTarget(renderer, NULL);
+    SDL_RenderTexture(renderer, surface, NULL, &dstRect);
     SDL_RenderPresent(renderer);
+    SDL_SetRenderTarget(renderer, surface);
+}
+
+SDL_Renderer* Window::getRenderer()
+{
+    return renderer;
 }
 
 void Window::destroy()
 {
     SDL_DestroyWindow(win);
     SDL_DestroyRenderer(renderer);
+    SDL_DestroyTexture(surface);
 
     win = NULL;
     renderer = NULL;
+    surface = NULL;
 }
 
 void Window::fill(int r, int g, int b)
@@ -82,6 +102,3 @@ Uint32 getPixel(SDL_Surface* surf, int x, int y)
 {
     return 0;
 }
-
-
-

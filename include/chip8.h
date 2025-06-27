@@ -26,6 +26,7 @@ class CHIP_8 {
         uint8_t waitingReg;
 
         int romSize;
+        bool romLoaded = false;
 		bool running = false;
 
         void startCHIP();

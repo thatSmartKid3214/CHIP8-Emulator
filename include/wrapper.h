@@ -12,6 +12,10 @@ class Window
         SDL_Window* win = NULL;
         SDL_Renderer* renderer = NULL;
 
+        SDL_Texture* surface;
+
+        SDL_FRect dstRect;
+
     public:
         Window(std::string title, int width, int height, SDL_WindowFlags flags);
         SDL_Window* getWindow();
@@ -19,6 +23,7 @@ class Window
         SDL_Surface* getChipSurface();
 
         void fill(int r, int g, int b);
+        SDL_Renderer* getRenderer();
         void drawFromDisplay(bool* display);
         void updateWindow();
         void destroy();
