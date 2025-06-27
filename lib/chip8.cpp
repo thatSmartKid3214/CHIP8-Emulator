@@ -25,7 +25,6 @@ void CHIP_8::load(std::string file)
 
     program_counter = 0x200;
     delay_timer = 0;
-    romLoaded = true;
 
     running = true;
 

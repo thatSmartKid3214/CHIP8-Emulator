@@ -1,9 +1,9 @@
 import subprocess
 import os
 
-files = ["main.cpp", "lib/wrapper.cpp", "lib/IO.cpp", "lib/chip8.cpp", "lib/instructions.cpp"]
+files = ["main.cpp", "lib/wrapper.cpp", "lib/IO.cpp", "lib/chip8.cpp", "lib/instructions.cpp", "lib/debugger.cpp"]
 libs = ["SDL3.dll", "SDL3_ttf.dll", "-lcomdlg32", "-lole32"]
-obj_files = ["main.o", "wrapper.o", "IO.o", "chip8.o", "instructions.o", "lib/tinyfiledialogs.c"]
+obj_files = ["main.o", "wrapper.o", "IO.o", "chip8.o", "instructions.o", "debugger.o", "lib/tinyfiledialogs.c"]
 
 output_file = "main"
 

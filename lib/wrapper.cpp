@@ -25,14 +25,21 @@ Window::Window(std::string title, int width, int height, SDL_WindowFlags flags)
 
     dstRect.x = 0;
     dstRect.y = 0;
-    dstRect.w = width;
-    dstRect.h = height;
+    dstRect.w = width/1.8;
+    dstRect.h = height/1.8;
 }
 
 void Window::updateWindow()
 {
+
     SDL_SetRenderTarget(renderer, NULL);
+
+    SDL_RenderTexture(renderer, debuggerSurface, NULL, NULL);
     SDL_RenderTexture(renderer, surface, NULL, &dstRect);
+
+    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 0);
+    SDL_RenderRect(renderer, &dstRect);
+
     SDL_RenderPresent(renderer);
     SDL_SetRenderTarget(renderer, surface);
 }
@@ -51,6 +58,11 @@ void Window::destroy()
     win = NULL;
     renderer = NULL;
     surface = NULL;
+}
+
+void Window::setDebuggerSurface(SDL_Texture* texture)
+{
+    debuggerSurface = texture;
 }
 
 void Window::fill(int r, int g, int b)

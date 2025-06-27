@@ -4,6 +4,7 @@
 #include "include/chip8.h"
 #include "include/instructions.h"
 #include "include/tinyfiledialogs.h"
+#include "include/debugger.h"
 
 void openROM(CHIP_8 &chip_8)
 {
@@ -36,6 +37,11 @@ int main(int argc, char** args)
     SDL_Event event;
 
     TTF_Font* font = TTF_OpenFont("assets/arial_black.ttf", 10);
+
+
+    Debugger debugger(window.getRenderer(), font, &chip_8, 64*SCALE, 64*SCALE);
+
+    window.setDebuggerSurface(debugger.getSurface());
 
     float now = SDL_GetPerformanceCounter();
     float prev = 0;
@@ -120,6 +126,10 @@ int main(int argc, char** args)
 
                     case SDLK_L:
                         openROM(chip_8);
+                        break;
+                    
+                    case SDLK_SPACE:
+                        debugger.togglePause();
                         break;
                 }
             }
@@ -316,14 +326,9 @@ int main(int argc, char** args)
             break;
         }
 
-        if(chip_8.romLoaded)
-        {
-            chip_8.romLoaded = false;
-            std::cout << "Hallo" << std::endl;
-            continue;
-        }
 
         window.drawFromDisplay(chip_8.display);
+        debugger.draw();
 
         window.updateWindow();
 
