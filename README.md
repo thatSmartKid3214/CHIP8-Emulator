@@ -9,26 +9,7 @@ Ctrl + L => Load a ROM
 
 Controls:
 
-Keypad				Keyboard
-
-+-+-+-+-+    +-+-+-+-+
-
-|1|2|3|C|    |1|2|3|4|
-
-+-+-+-+-+    +-+-+-+-+
-
-|4|5|6|D|    |Q|W|E|R|
-
-+-+-+-+-+ => +-+-+-+-+
-
-|7|8|9|E|    |A|S|D|F|
-
-+-+-+-+-+    +-+-+-+-+
-
-|A|0|B|F|    |Z|X|C|V|
-
-+-+-+-+-+    +-+-+-+-+
-
+<img width="409" height="331" alt="controls" src="https://github.com/user-attachments/assets/ae1939b1-5f6b-4b50-8791-48c001738c5c" />
 
 Issues:
 - Runs slowly
