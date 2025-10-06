@@ -8,16 +8,7 @@ Python is required to build the project. You can build it using the Python file 
 Ctrl + L => Load a ROM
 
 Controls:
-Keypad       Keyboard
-+-+-+-+-+    +-+-+-+-+
-|1|2|3|C|    |1|2|3|4|
-+-+-+-+-+    +-+-+-+-+
-|4|5|6|D|    |Q|W|E|R|
-+-+-+-+-+ => +-+-+-+-+
-|7|8|9|E|    |A|S|D|F|
-+-+-+-+-+    +-+-+-+-+
-|A|0|B|F|    |Z|X|C|V|
-+-+-+-+-+    +-+-+-+-+
+![Controls]([https://example.com/sunset.jpg](https://www.google.com/url?sa=i&url=https%3A%2F%2Fraduangelescu.com%2Fpost%2Fchip8emulatorjavascript%2F&psig=AOvVaw1O13IAR3N4nmO6AJxErIps&ust=1759850416376000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCJD9nervj5ADFQAAAAAdAAAAABAE) "Controls")
 
 Issues:
 - Runs slowly
