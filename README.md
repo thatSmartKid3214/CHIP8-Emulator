@@ -3,7 +3,7 @@ Only works for Windows.
 
 Requires SDL3 to compile and run.
 
-You can build it using the Python file "build.py".
+Python is required to build the project. You can build it using the Python file "build.py".
 
 Issues:
 - Runs slowly
