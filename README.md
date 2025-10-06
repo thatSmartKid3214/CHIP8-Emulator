@@ -1,14 +1,18 @@
-A chip8 emulator that was developed in 2 days.
-
+A Chip 8 emulator:
 Only works for Windows.
 
 Requires SDL3 to compile and run.
 
-You can build it using the python file "build.py".
+Python is required to build the project. You can build it using the Python file "build.py".
+
+Ctrl + L => Load a ROM
+
+Controls:
+
+<img width="409" height="331" alt="controls" src="https://github.com/user-attachments/assets/ae1939b1-5f6b-4b50-8791-48c001738c5c" />
 
 Issues:
-- Runs slow
-- Sometimes fails to accuraltely emulate some roms.
-- No way to switch roms, you will have to recompile each time you want to run a new ROM(will fix)
+- Runs slowly
+- Sometimes fails to accurately emulate some ROMs.
 
 
