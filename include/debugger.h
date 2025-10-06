@@ -16,6 +16,7 @@ class Debugger
         Debugger(SDL_Renderer* renderer, TTF_Font* font, CHIP_8* chip_8, int width, int height);
 
         void togglePause();
+        void stepThrough(bool next);
         void setBreakPoint(int location);
         void resetROM();
         void setProgramCounter(int pc);

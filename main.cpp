@@ -131,6 +131,24 @@ int main(int argc, char** args)
                     case SDLK_SPACE:
                         debugger.togglePause();
                         break;
+                    
+                    case SDLK_T:
+                        debugger.resetROM();
+                        break;
+                    
+                    case SDLK_RIGHT:
+                        if(chip_8.running == false)
+                        {
+                            debugger.stepThrough(true);
+                            break;
+                        }
+                    
+                    case SDLK_LEFT:
+                        if(chip_8.running == false)
+                        {
+                            debugger.stepThrough(false);
+                            break;
+                        }
                 }
             }
 

@@ -44,6 +44,7 @@ Instruction CHIP_8::fetch()
     data = (memory[program_counter] << 8) | memory[program_counter+1];
     program_counter += 2;
 
+
     Instruction instr = createInstruction(data);
     return instr;
 }
@@ -51,7 +52,7 @@ Instruction CHIP_8::fetch()
 void CHIP_8::execute()
 {
 
-    if(!running)
+    if(!running && !stepped)
     {
         return;
     }
@@ -236,6 +237,8 @@ void CHIP_8::execute()
 
             break;
     }
+
+    if(stepped == true) stepped = false;
 
 }
 

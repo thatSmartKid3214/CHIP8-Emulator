@@ -18,6 +18,21 @@ void Debugger::togglePause()
     chip_8->running = !chip_8->running;
 }
 
+void Debugger::stepThrough(bool next)
+{
+    if(next == true) // Step to the next instruction
+    {
+        chip_8->program_counter += 2;
+    } else {
+        chip_8->program_counter -= 4;
+
+        if(chip_8->program_counter < startAddress)
+            chip_8->program_counter = startAddress;
+    }
+
+    chip_8->stepped = true;
+} 
+
 SDL_Texture* Debugger::getSurface()
 {
     return surface;
@@ -30,7 +45,9 @@ void Debugger::setBreakPoint(int location)
 
 void Debugger::resetROM()
 {
-
+    chip_8->program_counter = startAddress;
+    clearDisplay(chip_8->display);
+    chip_8->running = true;
 }
 
 void Debugger::setProgramCounter(int pc)

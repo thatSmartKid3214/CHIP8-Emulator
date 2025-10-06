@@ -27,6 +27,7 @@ class CHIP_8 {
 
         int romSize;
 		bool running = false;
+        bool stepped = false;
 
         void startCHIP();
         void load(std::string file);
