@@ -8,7 +8,8 @@ Python is required to build the project. You can build it using the Python file 
 Ctrl + L => Load a ROM
 
 Controls:
-Keypad       Keyboard
+
+Keypad				Keyboard
 
 +-+-+-+-+    +-+-+-+-+
 
