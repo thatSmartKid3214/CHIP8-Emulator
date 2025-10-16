@@ -3,7 +3,7 @@ Only works for Windows.
 
 Requires SDL3 to compile and run.
 
-Python is required to build the project. You can build it using the Python file "build.py".
+You need Mingw to compile the project. Python is required to build the project. You can build it using the Python file "build.py".
 
 Ctrl + L => Load a ROM
 
